@@ -1,0 +1,37 @@
+{
+  "name": "soundpicker",
+  "productName": "SoundPicker",
+  "version": "0.6.12",
+  "description": "Browse a local SFX library, audition sounds and drag fragments into other apps",
+  "main": "./out/main/index.js",
+  "author": "SoundPicker",
+  "license": "Unlicense",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "electron-vite build",
+    "start": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test": "vitest run",
+    "dist": "electron-vite build && electron-builder --publish never",
+    "dist:win": "electron-vite build && electron-builder --win --publish never",
+    "dist:mac": "electron-vite build && electron-builder --mac --publish never"
+  },
+  "devDependencies": {
+    "@tanstack/react-virtual": "3.14.14",
+    "@types/node": "24.19.2",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.7",
+    "@vitejs/plugin-react": "5.2.0",
+    "electron": "44.9.3",
+    "electron-builder": "26.17.0",
+    "electron-vite": "5.0.0",
+    "lamejs": "1.2.1",
+    "music-metadata": "12.1.0",
+    "react": "19.2.9",
+    "react-dom": "19.2.9",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vitest": "4.1.12"
+  }
+}
