@@ -1,3 +1,4 @@
+import { join } from 'node:path'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { openDatabase } from '../src/main/db'
 import { LibraryStore } from '../src/main/library-store'
@@ -48,7 +49,8 @@ describe('LibraryStore', () => {
     expect(store.listFiles(root, false)).toHaveLength(0)
     expect(store.listFiles(root, true)).toHaveLength(3)
     expect(store.listFiles(sentry, true).map((f) => f.name)).toEqual(['Walk 0.mp3'])
-    expect(store.listFiles(walk, false)[0].path).toBe('/sfx/BF1/Sentry/Walk/Walk 0.mp3')
+    // Paths on disk use the system separator.
+    expect(store.listFiles(walk, false)[0].path).toBe(join('/sfx/BF1', 'Sentry', 'Walk', 'Walk 0.mp3'))
   })
 
   it('does not treat a folder with a longer name as a subfolder', () => {
@@ -70,7 +72,7 @@ describe('LibraryStore', () => {
     const { libraryId, grabA, walkA } = seed()
     store.markBroken(walkA)
     const first = store.filesNeedingDetails(libraryId, 0, 1)
-    expect(first).toEqual([{ id: grabA, path: '/sfx/BF1/Grab/Grab 0.mp3' }])
+    expect(first).toEqual([{ id: grabA, path: join('/sfx/BF1', 'Grab', 'Grab 0.mp3') }])
     const rest = store.filesNeedingDetails(libraryId, first[0].id, 10)
     expect(rest).toHaveLength(1)
     expect(store.countFilesNeedingDetails(libraryId)).toBe(2)
